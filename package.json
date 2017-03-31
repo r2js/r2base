@@ -1,0 +1,51 @@
+{
+  "name": "r2base",
+  "description": "Core API framework based on express",
+  "version": "1.0.0",
+  "author": "Selçuk Fatih Sevinç",
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "dependencies": {
+    "debug": "^2.6.3",
+    "express": "4.15.2",
+    "jwt-simple": "^0.5.1",
+    "r2load": "^1.0.2",
+    "validatorjs": "^3.11.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.18.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
+    "mocha": "^3.2.0",
+    "supertest": "^3.0.0"
+  },
+  "main": "index.js",
+  "readmeFilename": "README.md",
+  "keywords": [
+    "r2js",
+    "r2base",
+    "r2load",
+    "core",
+    "api",
+    "rest",
+    "framework",
+    "express",
+    "middleware"
+  ],
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/r2js/r2base.git"
+  },
+  "bugs": {
+    "url": "https://github.com/r2js/r2base/issues"
+  },
+  "homepage": "https://github.com/r2js/r2base"
+}
