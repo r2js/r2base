@@ -4,7 +4,7 @@ const r2base = require('../index');
 
 const expect = chai.expect;
 
-describe('r2', () => {
+describe('r2base', () => {
   describe('express app', () => {
     it('should start an express app', () => {
       const app = r2base({ baseDir: __dirname });
