@@ -5,7 +5,7 @@
         "mocha": true
     },
     "rules": {
-        "no-param-reassign": 1,
+        "no-param-reassign": [1, {"props": false}],
         "no-confusing-arrow": 0,
         "import/no-unresolved": 0
     }

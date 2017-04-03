@@ -31,9 +31,21 @@
   <a href="https://david-dm.org/r2js/r2base" target="_blank">
     <img src="https://img.shields.io/david/r2js/r2base.svg" alt="Dependencies" />
   </a>
+  <!-- Dev Dependencies -->
+  <a href="https://david-dm.org/r2js/r2base?type=dev" target="_blank">
+    <img src="https://img.shields.io/david/dev/r2js/r2base.svg" alt="Dev Dependencies" />
+  </a>
   <!-- Codeclimate -->
   <a href="https://codeclimate.com/github/r2js/r2base" target="_blank">
     <img src="https://img.shields.io/codeclimate/github/r2js/r2base.svg" alt="Codeclimate" />
+  </a>
+  <!-- Codeclimate Coverage -->
+  <a href="https://codeclimate.com/github/r2js/r2base" target="_blank">
+    <img src="https://img.shields.io/codeclimate/coverage/github/r2js/r2base.svg" alt="Codeclimate Coverage" />
+  </a>
+  <!-- Codacy -->
+  <a href="https://codacy.com" target="_blank">
+    <img src="https://img.shields.io/codacy/grade/1b4e4eeb6ec147dfb639e1eca6ce7c92.svg" alt="Codacy" />
   </a>
   <!-- Github Stars -->
   <a href="https://github.com/r2js/r2base" target="_blank">
