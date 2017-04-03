@@ -3,6 +3,7 @@ const request = require('supertest');
 const r2base = require('../index');
 
 const expect = chai.expect;
+process.chdir(__dirname);
 
 describe('r2base', () => {
   describe('express app', () => {
@@ -23,6 +24,14 @@ describe('r2base', () => {
       expect(app.get('port')).to.equal(8080);
     });
 
+    it('should load config file', () => {
+      const app = r2base({ baseDir: __dirname });
+      app.start().listen();
+      expect(app.config('a')).to.equal(1);
+      expect(app.config('b')).to.equal(2);
+      expect(app.config('c')).to.deep.equal({ x: 1 });
+    });
+
     it('GET /test should return 404', (done) => {
       const app = r2base({ baseDir: __dirname, port: 9001 });
       app.start().listen();
@@ -35,7 +44,7 @@ describe('r2base', () => {
 
     it('GET /controller/a should return 200', (done) => {
       const app = r2base({ baseDir: __dirname, port: 9002 });
-      app.start().load('test/controller').listen();
+      app.start().load('controller').listen();
       request.agent(app.server);
       request(app)
         .get('/controller/a')
@@ -58,7 +67,7 @@ describe('r2base', () => {
           req.data = { controller: 'b' };
           next();
         })
-        .load('test/controller/b.js')
+        .load('controller/b.js')
         .listen();
       request.agent(app.server);
       request(app)
@@ -76,8 +85,8 @@ describe('r2base', () => {
       const app = r2base({ baseDir: __dirname, port: 9004 });
       app
         .start()
-        .load('test/middleware/b.js')
-        .load('test/controller/b.js')
+        .load('middleware/b.js')
+        .load('controller/b.js')
         .listen();
       request.agent(app.server);
       request(app)
@@ -97,7 +106,7 @@ describe('r2base', () => {
       app
         .start()
         .serve(service, 'ServiceC')
-        .load('test/controller/c.js')
+        .load('controller/c.js')
         .listen();
       request.agent(app.server);
       request(app)
@@ -109,6 +118,41 @@ describe('r2base', () => {
           expect(res.body.service).to.equal('c');
           return done();
         });
+    });
+  });
+
+  describe('utils', () => {
+    it('should validate object', () => {
+      const app = r2base({ baseDir: __dirname });
+      const isFailed = app.utils.isFailed({ a: 1 }, { a: 'required' });
+      expect(isFailed).to.equal(false);
+    });
+
+    it('should not validate wrong object', () => {
+      const app = r2base({ baseDir: __dirname });
+      const isFailed = app.utils.isFailed({ b: 1 }, { a: 'required' });
+      expect(isFailed).to.deep.equal({ a: ['The a field is required.'] });
+    });
+
+    it('should generate random key', () => {
+      const app = r2base({ baseDir: __dirname });
+      const random = app.utils.random(32);
+      expect(random.length).to.equal(32);
+    });
+
+    it('should generate hash', () => {
+      const app = r2base({ baseDir: __dirname });
+      const hash = app.utils.hash('1234', 'abcd');
+      expect(hash).to.not.equal(undefined);
+    });
+
+    it('should generate and decode token', () => {
+      const app = r2base({ baseDir: __dirname });
+      const tokenData = app.utils.getToken({ expires: app.utils.expiresIn(3) }, '1234');
+      expect(tokenData.token).to.not.equal(undefined);
+      expect(tokenData.expires).to.not.equal(undefined);
+      const decodeToken = app.utils.decodeToken(tokenData.token, '1234');
+      expect(decodeToken.expires).to.equal(tokenData.expires);
     });
   });
 });

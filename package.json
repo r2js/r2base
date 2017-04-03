@@ -1,7 +1,7 @@
 {
   "name": "r2base",
   "description": "Core API framework based on express",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Selçuk Fatih Sevinç",
   "license": "MIT",
   "engines": {
@@ -11,11 +11,12 @@
     "debug": "^2.6.3",
     "express": "4.15.2",
     "jwt-simple": "^0.5.1",
-    "r2load": "^1.0.2",
+    "r2load": "^1.0.4",
     "validatorjs": "^3.11.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "ejs": "^2.5.6",
     "eslint": "^3.18.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",

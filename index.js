@@ -18,6 +18,7 @@ module.exports = ({
   app.set('port', getPort);
   app.set('baseDir', baseDir);
 
+  const toString = Object.prototype.toString;
   return Object.assign(app, load({ baseDir: __dirname }), {
     utils,
 
@@ -38,8 +39,13 @@ module.exports = ({
     },
 
     config(key) {
-      const config = this.services[`config/${env}`] || {};
-      return Object.assign({}, config[key]);
+      const config = this.services[`config/${env}`];
+
+      if (toString.call(config[key]) === '[object Object]') {
+        return Object.assign({}, config[key]);
+      }
+
+      return config[key];
     },
   });
 };
