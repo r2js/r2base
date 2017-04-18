@@ -2,6 +2,7 @@ const express = require('express');
 const load = require('r2load');
 const http = require('http');
 const utils = require('./lib/utils');
+const handler = require('./lib/handler');
 const debug = require('debug')('r2:index');
 
 module.exports = ({
@@ -21,6 +22,7 @@ module.exports = ({
   const toString = Object.prototype.toString;
   return Object.assign(app, load({ baseDir: __dirname }), {
     utils,
+    handler,
 
     start() {
       this.services = {};
@@ -28,6 +30,7 @@ module.exports = ({
     },
 
     listen() {
+      this.local('lib/error.js');
       this.into(app);
       this.server = server.listen(getPort, () => {
         debug('server listening, port: %s', getPort);
