@@ -1,18 +1,18 @@
 const error = (handler, data) => (req, res, next) => next(handler(data));
 
 module.exports = (app) => {
-  app.get('/OK', (req, res) => app.handler.OK({ a: 1 }, res));
-  app.post('/Created', (req, res) => app.handler.Created({ type: 'Created' }, res));
-  app.delete('/NoContent', (req, res) => app.handler.NoContent({ type: 'NoContent' }, res));
-  app.get('/BadRequest', error(app.handler.BadRequest, { a: 2 }));
-  app.get('/Unauthorized', error(app.handler.Unauthorized, { a: 3 }));
-  app.get('/Forbidden', error(app.handler.Forbidden, { a: 4 }));
-  app.get('/NotFound', error(app.handler.NotFound, { a: 5 }));
-  app.get('/MethodNotAllowed', error(app.handler.MethodNotAllowed, { a: 6 }));
-  app.get('/Gone', error(app.handler.Gone, { a: 7 }));
-  app.get('/UnsupportedMediaType', error(app.handler.UnsupportedMediaType, { a: 8 }));
-  app.post('/UnprocessableEntity', error(app.handler.UnprocessableEntity, { a: 9 }));
-  app.get('/TooManyRequests', error(app.handler.TooManyRequests, { a: 10 }));
-  app.get('/InternalServerError', error(app.handler.InternalServerError, { a: 11 }));
+  app.get('/ok', (req, res) => app.handler.ok({ a: 1 }, res));
+  app.post('/created', (req, res) => app.handler.created({ type: 'created' }, res));
+  app.delete('/noContent', (req, res) => app.handler.noContent({ type: 'noContent' }, res));
+  app.get('/badRequest', error(app.handler.badRequest, { a: 2 }));
+  app.get('/unauthorized', error(app.handler.unauthorized, { a: 3 }));
+  app.get('/forbidden', error(app.handler.forbidden, { a: 4 }));
+  app.get('/notFound', error(app.handler.notFound, { a: 5 }));
+  app.get('/methodNotAllowed', error(app.handler.methodNotAllowed, { a: 6 }));
+  app.get('/gone', error(app.handler.gone, { a: 7 }));
+  app.get('/unsupportedMediaType', error(app.handler.unsupportedMediaType, { a: 8 }));
+  app.post('/unprocessableEntity', error(app.handler.unprocessableEntity, { a: 9 }));
+  app.get('/tooManyRequests', error(app.handler.tooManyRequests, { a: 10 }));
+  app.get('/internalServerError', error(app.handler.internalServerError, { a: 11 }));
   return this;
 };
