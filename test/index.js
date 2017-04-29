@@ -154,6 +154,45 @@ describe('r2base', () => {
       const decodeToken = app.utils.decodeToken(tokenData.token, '1234');
       expect(decodeToken.expires).to.equal(tokenData.expires);
     });
+
+    it('should generate and check expired token', (done) => {
+      const app = r2base({ baseDir: __dirname });
+      const tokenData = app.utils.getToken({ expires: app.utils.expiresIn(-3) }, '1234');
+      app.utils.accessToken(tokenData.token, { secret: '1234' })
+        .then(done)
+        .catch((err) => {
+          expect(err).to.equal('token expired!');
+          done();
+        });
+    });
+
+    it('should check invalid token', (done) => {
+      const app = r2base({ baseDir: __dirname });
+      app.utils.accessToken('invalidToken', { secret: '1234' })
+        .then(done)
+        .catch((err) => {
+          expect(err).to.equal('token verification failed!');
+          done();
+        });
+    });
+
+    it('should generate and check valid token', () => {
+      const app = r2base({ baseDir: __dirname });
+      const tokenData = app.utils.getToken({ expires: app.utils.expiresIn(3) }, '1234');
+      return app.utils.accessToken(tokenData.token, { secret: '1234' });
+    });
+
+    it('should not check access token without jwt config', () => {
+      const app = r2base({ baseDir: __dirname });
+      const token = app.utils.accessToken('token');
+      expect(token).to.equal(undefined);
+    });
+
+    it('should split strings', () => {
+      const app = r2base({ baseDir: __dirname });
+      const params = app.utils.split('param1|param2');
+      expect(params).to.deep.equal(['param1', 'param2']);
+    });
   });
 
   describe('handler', () => {
