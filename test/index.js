@@ -193,6 +193,30 @@ describe('r2base', () => {
       const params = app.utils.split('param1|param2');
       expect(params).to.deep.equal(['param1', 'param2']);
     });
+
+    it('should check valid services', () => {
+      const app = r2base({ baseDir: __dirname });
+      const service = require('./service/c'); // eslint-disable-line
+      app
+        .start()
+        .serve(service, 'ServiceC')
+        .load('controller/c.js')
+        .into(app);
+
+      expect(app.hasServices('config/development|ServiceC|controller/c')).to.equal(true);
+    });
+
+    it('should check invalid services', () => {
+      const app = r2base({ baseDir: __dirname });
+      const service = require('./service/c'); // eslint-disable-line
+      app
+        .start()
+        .serve(service, 'ServiceC')
+        .load('controller/c.js')
+        .into(app);
+
+      expect(app.hasServices('ServiceX')).to.equal(undefined);
+    });
   });
 
   describe('handler', () => {

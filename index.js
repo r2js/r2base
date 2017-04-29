@@ -3,14 +3,15 @@ const load = require('r2load');
 const http = require('http');
 const utils = require('./lib/utils');
 const handler = require('./lib/handler');
-const debug = require('debug')('r2:index');
+const _ = require('underscore');
+const log = require('debug')('r2:index');
 
 module.exports = ({
   env = 'development',
   port = 3001,
   baseDir,
 } = {}) => {
-  debug('app initialized');
+  log('app initialized');
   const getEnv = process.env.NODE_ENV || env;
   const getPort = process.env.NODE_PORT || port;
   const app = express();
@@ -33,7 +34,7 @@ module.exports = ({
       this.local('lib/error.js');
       this.into(app);
       this.server = server.listen(getPort, () => {
-        debug('server listening, port: %s', getPort);
+        log('server listening, port: %s', getPort);
       });
     },
 
@@ -49,6 +50,16 @@ module.exports = ({
       }
 
       return config[key];
+    },
+
+    hasServices(services) {
+      const serviceArr = this.utils.split(services);
+      const diff = _.difference(serviceArr, Object.keys(this.services));
+      if (diff.length) {
+        return log(`The service depends on the [${diff.join(', ')}] services`);
+      }
+
+      return true;
     },
   });
 };
