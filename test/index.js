@@ -134,6 +134,28 @@ describe('r2base', () => {
       expect(isFailed).to.deep.equal({ a: ['The a field is required.'] });
     });
 
+    it('should not validate wrong object, en', () => {
+      const app = r2base({ baseDir: __dirname });
+      const isFailed = app.utils.isFailed({ b: 1 }, { a: 'required' }, {
+        lang: 'en',
+        attributes: {
+          en: { a: 'a_EN' },
+        },
+      });
+      expect(isFailed).to.deep.equal({ a: ['The a_EN field is required.'] });
+    });
+
+    it('should not validate wrong object, tr', () => {
+      const app = r2base({ baseDir: __dirname });
+      const isFailed = app.utils.isFailed({ b: 1 }, { a: 'required' }, {
+        lang: 'tr',
+        attributes: {
+          tr: { a: 'a_TR' },
+        },
+      });
+      expect(isFailed).to.deep.equal({ a: ['a_TR alanı gerekli.'] });
+    });
+
     it('should generate random key', () => {
       const app = r2base({ baseDir: __dirname });
       const random = app.utils.random(32);
