@@ -154,11 +154,13 @@ describe('r2base', () => {
         },
         setMapAttributes: true,
       });
-      expect(isFailed).to.deep.equal({
-        path: 'a',
-        message: 'The a_EN field is required.',
-        type: 'required',
-      });
+      expect(isFailed).to.deep.equal([
+        {
+          path: 'a',
+          message: 'The a_EN field is required.',
+          type: 'required',
+        },
+      ]);
     });
 
     it('should not validate wrong object, tr', () => {
@@ -181,11 +183,13 @@ describe('r2base', () => {
         },
         setMapAttributes: true,
       });
-      expect(isFailed).to.deep.equal({
-        path: 'a',
-        message: 'a_TR alanı gerekli.',
-        type: 'required',
-      });
+      expect(isFailed).to.deep.equal([
+        {
+          path: 'a',
+          message: 'a_TR alanı gerekli.',
+          type: 'required',
+        },
+      ]);
     });
 
     it('should generate random key', () => {
