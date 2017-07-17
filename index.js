@@ -43,7 +43,7 @@ module.exports = ({
     },
 
     config(key) {
-      const config = this.services[`config/${env}`];
+      const config = this.services[`config/${getEnv}`];
 
       if (toString.call(config[key]) === '[object Object]') {
         return Object.assign({}, config[key]);
