@@ -27,7 +27,7 @@ module.exports = ({
 
     start() {
       this.services = {};
-      return this.load(`config/${env}.js`);
+      return this.load(`config/${getEnv}.js`);
     },
 
     listen() {
