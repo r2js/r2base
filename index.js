@@ -9,7 +9,6 @@ const log = require('debug')('r2:index');
 module.exports = ({
   env = 'development',
   port = 3001,
-  baseDir,
 } = {}) => {
   log('app initialized');
   const getEnv = process.env.NODE_ENV || env;
@@ -18,7 +17,6 @@ module.exports = ({
   const server = http.createServer(app);
   app.set('env', getEnv);
   app.set('port', getPort);
-  app.set('baseDir', baseDir);
 
   const toString = Object.prototype.toString;
   return Object.assign(app, load({ baseDir: __dirname }), {
@@ -33,7 +31,7 @@ module.exports = ({
     listen() {
       this.local('lib/error.js');
       this.into(app);
-      this.server = server.listen(getPort, () => {
+      server.listen(getPort, () => {
         log('server listening, port: %s', getPort);
       });
     },
@@ -45,6 +43,7 @@ module.exports = ({
     config(key) {
       const config = this.services[`config/${getEnv}`];
 
+      // return clone, do not mutate!
       if (toString.call(config[key]) === '[object Object]') {
         return Object.assign({}, config[key]);
       }
@@ -55,6 +54,7 @@ module.exports = ({
     hasServices(services) {
       const serviceArr = this.utils.split(services);
       const diff = _.difference(serviceArr, Object.keys(this.services));
+
       if (diff.length) {
         return log(`The service depends on the [${diff.join(', ')}] services`);
       }

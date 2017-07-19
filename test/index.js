@@ -375,4 +375,22 @@ describe('r2base', () => {
       request(handler).get('/xyz').expect(404).end(done);
     });
   });
+
+  describe('prod config', () => {
+    before((done) => {
+      process.env.NODE_ENV = 'production';
+      done();
+    });
+
+    it('should load config file via NODE_ENV=production', () => {
+      const app = r2base();
+      app.start().into(app);
+      expect(app.config('a')).to.equal('p1');
+    });
+
+    after((done) => {
+      delete process.env.NODE_ENV;
+      done();
+    });
+  });
 });

@@ -1,7 +1,7 @@
 {
   "name": "r2base",
   "description": "Core API framework based on express",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "author": "Selçuk Fatih Sevinç",
   "license": "MIT",
   "engines": {
@@ -12,7 +12,7 @@
     "express": "4.15.2",
     "extend-error": "0.0.2",
     "jwt-simple": "^0.5.1",
-    "r2load": "^1.0.6",
+    "r2load": "^1.0.9",
     "underscore": "^1.8.3",
     "validatorjs": "^3.11.0"
   },
