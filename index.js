@@ -4,7 +4,7 @@ const http = require('http');
 const utils = require('./lib/utils');
 const handler = require('./lib/handler');
 const _ = require('underscore');
-const log = require('debug')('r2:index');
+const log = require('debug')('r2:base');
 
 module.exports = ({
   env = 'development',
