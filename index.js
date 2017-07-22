@@ -9,10 +9,13 @@ const log = require('debug')('r2:base');
 module.exports = ({
   env = 'development',
   port = 3001,
+  tz = 'UTC',
 } = {}) => {
   log('app initialized');
   const getEnv = process.env.NODE_ENV || env;
   const getPort = process.env.NODE_PORT || port;
+  process.env.TZ = tz;
+
   const app = express();
   const server = http.createServer(app);
   app.set('env', getEnv);
