@@ -393,4 +393,22 @@ describe('r2base', () => {
       done();
     });
   });
+
+  describe('server', () => {
+    it('should create server property', () => {
+      const app = r2base();
+      app.start().listen();
+      expect(app.server).to.not.equal(undefined);
+    });
+  });
+
+  describe('service', () => {
+    it('should override service', () => {
+      const app = r2base();
+      const service = require('./service/c'); // eslint-disable-line
+      app.start().serve(service, 'ServiceC').into(app);
+      app.setService(require('./service/d'), 'ServiceC'); // eslint-disable-line
+      expect(app.service('ServiceC')).to.deep.equal({ service: 'd' });
+    });
+  });
 });

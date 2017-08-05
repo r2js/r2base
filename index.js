@@ -34,7 +34,7 @@ module.exports = ({
     listen() {
       this.local('lib/error.js');
       this.into(app);
-      server.listen(getPort, () => {
+      this.server = server.listen(getPort, () => {
         log('server listening, port: %s', getPort);
       });
     },
@@ -63,6 +63,19 @@ module.exports = ({
       }
 
       return true;
+    },
+
+    setService(...args) {
+      const { object, name, opts } = this.resolveService(...args);
+
+      if (name && object && typeof object === 'function') {
+        if (this.services[name]) {
+          log(`be careful, you are overriding ${name} service!`);
+        }
+
+        const instance = object.call(object, app, opts);
+        Object.assign(this.services, { [name]: instance });
+      }
     },
   });
 };
